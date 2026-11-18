@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bfla-vllm"
+version = "0.3.0"
+description = "Explicit vLLM prefill adapters for the independent BFLA operator"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["bfla>=0.1.1"]
+license = "Apache-2.0"
+license-files = ["LICENSE.md", "NOTICE.md", "licenses/*"]
+
+[project.optional-dependencies]
+localgraph = ["cuda-bindings>=12.8"]
+
+[project.entry-points."vllm.general_plugins"]
+bfla = "bfla_vllm:register"
+
+[tool.setuptools.packages.find]
+include = ["bfla_vllm*"]
+
+[tool.setuptools.package-data]
+"bfla_vllm.qsa" = ["ABI_PINS.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

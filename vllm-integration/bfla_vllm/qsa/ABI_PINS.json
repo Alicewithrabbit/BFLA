@@ -1,0 +1,26 @@
+{
+  "source": "vllm.models.qwen4_exp.nvidia",
+  "purpose": "Source fingerprints for the Qwen3.8-Flash-Next QSA adapter",
+  "files": {
+    "vllm/models/qwen4_exp/nvidia/__init__.py": "e3c55cbb0d7a8bd47df6f3378835644645f5d3bc89b45793b5d5a02d013e5c58",
+    "vllm/models/qwen4_exp/nvidia/hyperconnection.py": "3cf42672bbf21b97a070fc8901ddb4eacfa66db4e05913187e5431f9ee905601",
+    "vllm/models/qwen4_exp/nvidia/indexer_qsa.py": "7fe511949bb34aba2f488e611db023be2b1248b36c5fafcaefbcba24012ee738",
+    "vllm/models/qwen4_exp/nvidia/low_latency_gemm.py": "d5c077edb026c7ea341f321de444a7e65817839b4b45bbbb786770e7c8e12ace",
+    "vllm/models/qwen4_exp/nvidia/model.py": "b90aa88d8a0969f3f69c6da7a21bb089fc65a715bc872694c646ab9651855e84",
+    "vllm/models/qwen4_exp/nvidia/model_state.py": "a5b062d0354f82b93ee78f0e5d9089fd011a073c817b6ee0d61e99536e54b3a4",
+    "vllm/models/qwen4_exp/nvidia/mtp.py": "35dc7e4b4cf124ce79a7bfc65a5f198c9edc622f1692bf6b24c91486112b7d99",
+    "vllm/models/qwen4_exp/nvidia/ngram_embedding.py": "7c3f00b5b77b364062dd28b49f3fc43c52fd74b7b0d63a32870937eb10ff16e4",
+    "vllm/models/qwen4_exp/nvidia/ple_layer.py": "5f77f83ca237f3d2085e9f18dcafaaa2600f7dc40fbe3812bc2d52c1f8665f24",
+    "vllm/models/qwen4_exp/nvidia/qsa.py": "b05df87a20a31e7f3d3374631967a39540407efb55ad4ed31580a3bd10ce4ddc",
+    "vllm/models/qwen4_exp/nvidia/ops/__init__.py": "5411ed7a26e8f839344d18eb2476b5b7ba85439177e37a59051e1010ce9af749",
+    "vllm/models/qwen4_exp/nvidia/ops/hc.py": "f4af1d4bf4564c6ce18b59f5aa3bc6e4c07a8e785a671de26ff4a92f62927813",
+    "vllm/models/qwen4_exp/nvidia/ops/ple.py": "68f3499f00c67742a8c3fcece071626d8d82e8a6e1c04e241922df61539d8e9b",
+    "vllm/models/qwen4_exp/nvidia/ops/qsa.py": "6a41ab3e8af9f6579dd64c7c5b08364f2df558061a1d2a57cef74cb5c2ea18bb",
+    "vllm/models/qwen4_exp/nvidia/ops/qsa_indexer.py": "4d09eb2f409e7cd71c7849c4f3bdd71d722bce6feaccb558f7ae67ac2d489a2b",
+    "vllm/models/qwen4_exp/nvidia/ops/qsa_pre_indexer.py": "8af0b1979e5896569d3a4c11b0708013f1f93bb4c5cb1d98dafdd7fb52c64b70",
+    "vllm/models/qwen4_exp/nvidia/ops/cute_dsl/__init__.py": "e3c55cbb0d7a8bd47df6f3378835644645f5d3bc89b45793b5d5a02d013e5c58",
+    "vllm/models/qwen4_exp/nvidia/ops/cute_dsl/_hc_down_silu_fma.py": "0b1e4ab5cdc77d06f498d62f00172f60de3fbdc4440e0df68dce2e55abee6884",
+    "vllm/models/qwen4_exp/nvidia/ops/cute_dsl/_hc_down_silu_mma.py": "cb9f17c6dc33c0481cee5e7a31bfc898ac88d9bfffd3f8eaaaeca2a4627e794f",
+    "vllm/models/qwen4_exp/nvidia/ops/cute_dsl/hc_down_silu.py": "abda6f55c00b7edaee0ee8d4552772764f9f43968629b89f6c0a1a458e57c08a"
+  }
+}

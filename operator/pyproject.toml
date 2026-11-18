@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bfla"
+version = "0.1.1"
+description = "Framework-independent block-sparse prefill attention for NVIDIA SM90"
+requires-python = ">=3.10"
+license-files = [
+    "LICENSE.md", "UPSTREAM.md",
+    "bfla/_vendor/*-LICENSE", "bfla/_vendor/cutlass/LICENSE",
+    "bfla/_vendor/cccl/LICENSE", "bfla/_vendor/cccl/*/LICENSE*",
+]
+
+[project.optional-dependencies]
+cuda = ["torch", "triton; platform_system == 'Linux'", "ninja"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bfla", "bfla._kernels"]
+namespaces = false
+
+[tool.setuptools.package-data]
+bfla = ["_csrc/**/*", "_vendor/**/*"]

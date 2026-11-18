@@ -1,0 +1,656 @@
+// This file was automatically generated. Do not edit.
+
+// clang-tidy does not distinguish generated PTX constraints or inline-assembly branch bodies.
+// NOLINTBEGIN(modernize-unary-static-assert, bugprone-branch-clone)
+
+#ifndef _CUDA_PTX_GENERATED_MBARRIER_TRY_WAIT_H_
+#define _CUDA_PTX_GENERATED_MBARRIER_TRY_WAIT_H_
+
+/*
+// mbarrier.try_wait.shared::cta.b64 waitComplete, [addr], state; // PTX ISA 78, SM_90
+template <typename = void>
+__device__ static inline bool mbarrier_try_wait(
+  uint64_t* addr,
+  const uint64_t& state);
+*/
+#if __cccl_ptx_isa >= 780
+template <typename = void>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(::cuda::std::uint64_t* __addr, const ::cuda::std::uint64_t& __state)
+{
+  ::cuda::std::uint32_t __waitComplete;
+  asm("{\n\t"
+      ".reg .pred P_OUT; \n\t"
+      "mbarrier.try_wait.shared::cta.b64 P_OUT, [%1], %2; \n\t"
+      "selp.b32 %0, 1, 0, P_OUT; \n"
+      "}"
+      : "=r"(__waitComplete)
+      : "r"(__as_ptr_smem(__addr)), "l"(__state)
+      : "memory");
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 780
+
+/*
+// mbarrier.try_wait.shared::cta.b64 waitComplete, [addr], state, suspendTimeHint; // PTX ISA 78, SM_90
+template <typename = void>
+__device__ static inline bool mbarrier_try_wait(
+  uint64_t* addr,
+  const uint64_t& state,
+  const uint32_t& suspendTimeHint);
+*/
+#if __cccl_ptx_isa >= 780
+template <typename = void>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::std::uint64_t* __addr, const ::cuda::std::uint64_t& __state, const ::cuda::std::uint32_t& __suspendTimeHint)
+{
+  ::cuda::std::uint32_t __waitComplete;
+  asm("{\n\t"
+      ".reg .pred P_OUT; \n\t"
+      "mbarrier.try_wait.shared::cta.b64 P_OUT, [%1], %2, %3; \n\t"
+      "selp.b32 %0, 1, 0, P_OUT; \n"
+      "}"
+      : "=r"(__waitComplete)
+      : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+      : "memory");
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 780
+
+/*
+// mbarrier.try_wait.sem.scope.shared::cta.b64 waitComplete, [addr], state; // PTX ISA 80, SM_90
+// .sem       = { .acquire }
+// .scope     = { .cta, .cluster }
+template <cuda::ptx::dot_scope Scope>
+__device__ static inline bool mbarrier_try_wait(
+  cuda::ptx::sem_acquire_t,
+  cuda::ptx::scope_t<Scope> scope,
+  uint64_t* addr,
+  const uint64_t& state);
+*/
+#if __cccl_ptx_isa >= 800
+template <::cuda::ptx::dot_scope _Scope>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::ptx::sem_acquire_t,
+  ::cuda::ptx::scope_t<_Scope> __scope,
+  ::cuda::std::uint64_t* __addr,
+  const ::cuda::std::uint64_t& __state)
+{
+  // __sem == sem_acquire (due to parameter type constraint)
+  static_assert(__scope == scope_cta || __scope == scope_cluster, "");
+  ::cuda::std::uint32_t __waitComplete;
+  if constexpr (__scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT; \n\t"
+        "mbarrier.try_wait.acquire.cta.shared::cta.b64 P_OUT, [%1], %2; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT; \n"
+        "}"
+        : "=r"(__waitComplete)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  else if constexpr (__scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT; \n\t"
+        "mbarrier.try_wait.acquire.cluster.shared::cta.b64 P_OUT, [%1], %2; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT; \n"
+        "}"
+        : "=r"(__waitComplete)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 800
+
+/*
+// mbarrier.try_wait.sem.scope.shared::cta.b64 waitComplete, [addr], state, suspendTimeHint; // PTX ISA 80, SM_90
+// .sem       = { .acquire }
+// .scope     = { .cta, .cluster }
+template <cuda::ptx::dot_scope Scope>
+__device__ static inline bool mbarrier_try_wait(
+  cuda::ptx::sem_acquire_t,
+  cuda::ptx::scope_t<Scope> scope,
+  uint64_t* addr,
+  const uint64_t& state,
+  const uint32_t& suspendTimeHint);
+*/
+#if __cccl_ptx_isa >= 800
+template <::cuda::ptx::dot_scope _Scope>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::ptx::sem_acquire_t,
+  ::cuda::ptx::scope_t<_Scope> __scope,
+  ::cuda::std::uint64_t* __addr,
+  const ::cuda::std::uint64_t& __state,
+  const ::cuda::std::uint32_t& __suspendTimeHint)
+{
+  // __sem == sem_acquire (due to parameter type constraint)
+  static_assert(__scope == scope_cta || __scope == scope_cluster, "");
+  ::cuda::std::uint32_t __waitComplete;
+  if constexpr (__scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT; \n\t"
+        "mbarrier.try_wait.acquire.cta.shared::cta.b64 P_OUT, [%1], %2, %3; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT; \n"
+        "}"
+        : "=r"(__waitComplete)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  else if constexpr (__scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT; \n\t"
+        "mbarrier.try_wait.acquire.cluster.shared::cta.b64 P_OUT, [%1], %2, %3; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT; \n"
+        "}"
+        : "=r"(__waitComplete)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 800
+
+/*
+// mbarrier.try_wait.sem.scope.shared::cta.b64 waitComplete, [addr], state; // PTX ISA 86, SM_90
+// .sem       = { .relaxed }
+// .scope     = { .cta, .cluster }
+template <cuda::ptx::dot_scope Scope>
+__device__ static inline bool mbarrier_try_wait(
+  cuda::ptx::sem_relaxed_t,
+  cuda::ptx::scope_t<Scope> scope,
+  uint64_t* addr,
+  const uint64_t& state);
+*/
+#if __cccl_ptx_isa >= 860
+template <::cuda::ptx::dot_scope _Scope>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::ptx::sem_relaxed_t,
+  ::cuda::ptx::scope_t<_Scope> __scope,
+  ::cuda::std::uint64_t* __addr,
+  const ::cuda::std::uint64_t& __state)
+{
+  // __sem == sem_relaxed (due to parameter type constraint)
+  static_assert(__scope == scope_cta || __scope == scope_cluster, "");
+  ::cuda::std::uint32_t __waitComplete;
+  if constexpr (__scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT; \n\t"
+        "mbarrier.try_wait.relaxed.cta.shared::cta.b64 P_OUT, [%1], %2; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT; \n"
+        "}"
+        : "=r"(__waitComplete)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  else if constexpr (__scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT; \n\t"
+        "mbarrier.try_wait.relaxed.cluster.shared::cta.b64 P_OUT, [%1], %2; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT; \n"
+        "}"
+        : "=r"(__waitComplete)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 860
+
+/*
+// mbarrier.try_wait.sem.scope.shared::cta.b64 waitComplete, [addr], state, suspendTimeHint; // PTX ISA 86, SM_90
+// .sem       = { .relaxed }
+// .scope     = { .cta, .cluster }
+template <cuda::ptx::dot_scope Scope>
+__device__ static inline bool mbarrier_try_wait(
+  cuda::ptx::sem_relaxed_t,
+  cuda::ptx::scope_t<Scope> scope,
+  uint64_t* addr,
+  const uint64_t& state,
+  const uint32_t& suspendTimeHint);
+*/
+#if __cccl_ptx_isa >= 860
+template <::cuda::ptx::dot_scope _Scope>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::ptx::sem_relaxed_t,
+  ::cuda::ptx::scope_t<_Scope> __scope,
+  ::cuda::std::uint64_t* __addr,
+  const ::cuda::std::uint64_t& __state,
+  const ::cuda::std::uint32_t& __suspendTimeHint)
+{
+  // __sem == sem_relaxed (due to parameter type constraint)
+  static_assert(__scope == scope_cta || __scope == scope_cluster, "");
+  ::cuda::std::uint32_t __waitComplete;
+  if constexpr (__scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT; \n\t"
+        "mbarrier.try_wait.relaxed.cta.shared::cta.b64 P_OUT, [%1], %2, %3; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT; \n"
+        "}"
+        : "=r"(__waitComplete)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  else if constexpr (__scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT; \n\t"
+        "mbarrier.try_wait.relaxed.cluster.shared::cta.b64 P_OUT, [%1], %2, %3; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT; \n"
+        "}"
+        : "=r"(__waitComplete)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 860
+
+/*
+// mbarrier.try_wait.phase_type.sem.scope.shared::cta.b64 waitComplete|isReportSeen, [addr], state; // PTX ISA 94, SM_90
+// .phase_type = { .phase_type::primary }
+// .sem       = { .acquire, .relaxed }
+// .scope     = { .cta, .cluster }
+template <cuda::ptx::dot_sem Sem, cuda::ptx::dot_scope Scope>
+__device__ static inline bool mbarrier_try_wait(
+  cuda::ptx::mbarrier_phase_primary_t,
+  cuda::ptx::sem_t<Sem> sem,
+  cuda::ptx::scope_t<Scope> scope,
+  bool& isReportSeen,
+  uint64_t* addr,
+  uint64_t state);
+*/
+#if __cccl_ptx_isa >= 940
+template <::cuda::ptx::dot_sem _Sem, ::cuda::ptx::dot_scope _Scope>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::ptx::mbarrier_phase_primary_t,
+  ::cuda::ptx::sem_t<_Sem> __sem,
+  ::cuda::ptx::scope_t<_Scope> __scope,
+  bool& __isReportSeen,
+  ::cuda::std::uint64_t* __addr,
+  ::cuda::std::uint64_t __state)
+{
+  // __phase_type == mbarrier_phase_primary (due to parameter type constraint)
+  static_assert(__sem == sem_acquire || __sem == sem_relaxed, "");
+  static_assert(__scope == scope_cta || __scope == scope_cluster, "");
+  ::cuda::std::uint32_t __waitComplete;
+  ::cuda::std::uint32_t __isReportSeen_tmp;
+  if constexpr (__sem == sem_acquire && __scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        "mbarrier.try_wait.phase_type::primary.acquire.cta.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "[%2], %3; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_acquire && __scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        "mbarrier.try_wait.phase_type::primary.acquire.cluster.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "[%2], %3; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_relaxed && __scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        "mbarrier.try_wait.phase_type::primary.relaxed.cta.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "[%2], %3; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_relaxed && __scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        "mbarrier.try_wait.phase_type::primary.relaxed.cluster.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "[%2], %3; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  __isReportSeen = static_cast<bool>(__isReportSeen_tmp);
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 940
+
+/*
+// mbarrier.try_wait.phase_type.sem.scope.shared::cta.b64 waitComplete|isReportSeen, reportValue, [addr], state; // PTX
+ISA 94, SM_90
+// .phase_type = { .phase_type::primary }
+// .sem       = { .acquire, .relaxed }
+// .scope     = { .cta, .cluster }
+template <cuda::ptx::dot_sem Sem, cuda::ptx::dot_scope Scope>
+__device__ static inline bool mbarrier_try_wait(
+  cuda::ptx::mbarrier_phase_primary_t,
+  cuda::ptx::sem_t<Sem> sem,
+  cuda::ptx::scope_t<Scope> scope,
+  bool& isReportSeen,
+  uint8_t& reportValue,
+  uint64_t* addr,
+  uint64_t state);
+*/
+#if __cccl_ptx_isa >= 940
+template <::cuda::ptx::dot_sem _Sem, ::cuda::ptx::dot_scope _Scope>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::ptx::mbarrier_phase_primary_t,
+  ::cuda::ptx::sem_t<_Sem> __sem,
+  ::cuda::ptx::scope_t<_Scope> __scope,
+  bool& __isReportSeen,
+  ::cuda::std::uint8_t& __reportValue,
+  ::cuda::std::uint64_t* __addr,
+  ::cuda::std::uint64_t __state)
+{
+  // __phase_type == mbarrier_phase_primary (due to parameter type constraint)
+  static_assert(__sem == sem_acquire || __sem == sem_relaxed, "");
+  static_assert(__scope == scope_cta || __scope == scope_cluster, "");
+  ::cuda::std::uint32_t __waitComplete;
+  ::cuda::std::uint32_t __isReportSeen_tmp;
+  ::cuda::std::uint32_t __reportValue_tmp;
+  if constexpr (__sem == sem_acquire && __scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        ".reg .b8 B_OUT_reportValue; \n\t"
+        "mbarrier.try_wait.phase_type::primary.acquire.cta.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "B_OUT_reportValue, "
+        "[%3], %4; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n\t"
+        "cvt.u32.u8 %2, B_OUT_reportValue; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp), "=r"(__reportValue_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_acquire && __scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        ".reg .b8 B_OUT_reportValue; \n\t"
+        "mbarrier.try_wait.phase_type::primary.acquire.cluster.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "B_OUT_reportValue, "
+        "[%3], %4; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n\t"
+        "cvt.u32.u8 %2, B_OUT_reportValue; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp), "=r"(__reportValue_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_relaxed && __scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        ".reg .b8 B_OUT_reportValue; \n\t"
+        "mbarrier.try_wait.phase_type::primary.relaxed.cta.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "B_OUT_reportValue, "
+        "[%3], %4; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n\t"
+        "cvt.u32.u8 %2, B_OUT_reportValue; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp), "=r"(__reportValue_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_relaxed && __scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        ".reg .b8 B_OUT_reportValue; \n\t"
+        "mbarrier.try_wait.phase_type::primary.relaxed.cluster.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "B_OUT_reportValue, "
+        "[%3], %4; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n\t"
+        "cvt.u32.u8 %2, B_OUT_reportValue; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp), "=r"(__reportValue_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state)
+        : "memory");
+  }
+  __isReportSeen = static_cast<bool>(__isReportSeen_tmp);
+  __reportValue  = static_cast<::cuda::std::uint8_t>(__reportValue_tmp);
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 940
+
+/*
+// mbarrier.try_wait.phase_type.sem.scope.shared::cta.b64 waitComplete|isReportSeen, [addr], state, suspendTimeHint; //
+PTX ISA 94, SM_90
+// .phase_type = { .phase_type::primary }
+// .sem       = { .acquire, .relaxed }
+// .scope     = { .cta, .cluster }
+template <cuda::ptx::dot_sem Sem, cuda::ptx::dot_scope Scope>
+__device__ static inline bool mbarrier_try_wait(
+  cuda::ptx::mbarrier_phase_primary_t,
+  cuda::ptx::sem_t<Sem> sem,
+  cuda::ptx::scope_t<Scope> scope,
+  bool& isReportSeen,
+  uint64_t* addr,
+  uint64_t state,
+  uint32_t suspendTimeHint);
+*/
+#if __cccl_ptx_isa >= 940
+template <::cuda::ptx::dot_sem _Sem, ::cuda::ptx::dot_scope _Scope>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::ptx::mbarrier_phase_primary_t,
+  ::cuda::ptx::sem_t<_Sem> __sem,
+  ::cuda::ptx::scope_t<_Scope> __scope,
+  bool& __isReportSeen,
+  ::cuda::std::uint64_t* __addr,
+  ::cuda::std::uint64_t __state,
+  ::cuda::std::uint32_t __suspendTimeHint)
+{
+  // __phase_type == mbarrier_phase_primary (due to parameter type constraint)
+  static_assert(__sem == sem_acquire || __sem == sem_relaxed, "");
+  static_assert(__scope == scope_cta || __scope == scope_cluster, "");
+  ::cuda::std::uint32_t __waitComplete;
+  ::cuda::std::uint32_t __isReportSeen_tmp;
+  if constexpr (__sem == sem_acquire && __scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        "mbarrier.try_wait.phase_type::primary.acquire.cta.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "[%2], %3, %4; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_acquire && __scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        "mbarrier.try_wait.phase_type::primary.acquire.cluster.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "[%2], %3, %4; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_relaxed && __scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        "mbarrier.try_wait.phase_type::primary.relaxed.cta.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "[%2], %3, %4; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_relaxed && __scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        "mbarrier.try_wait.phase_type::primary.relaxed.cluster.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "[%2], %3, %4; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  __isReportSeen = static_cast<bool>(__isReportSeen_tmp);
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 940
+
+/*
+// mbarrier.try_wait.phase_type.sem.scope.shared::cta.b64 waitComplete|isReportSeen, reportValue, [addr], state,
+suspendTimeHint; // PTX ISA 94, SM_90
+// .phase_type = { .phase_type::primary }
+// .sem       = { .acquire, .relaxed }
+// .scope     = { .cta, .cluster }
+template <cuda::ptx::dot_sem Sem, cuda::ptx::dot_scope Scope>
+__device__ static inline bool mbarrier_try_wait(
+  cuda::ptx::mbarrier_phase_primary_t,
+  cuda::ptx::sem_t<Sem> sem,
+  cuda::ptx::scope_t<Scope> scope,
+  bool& isReportSeen,
+  uint8_t& reportValue,
+  uint64_t* addr,
+  uint64_t state,
+  uint32_t suspendTimeHint);
+*/
+#if __cccl_ptx_isa >= 940
+template <::cuda::ptx::dot_sem _Sem, ::cuda::ptx::dot_scope _Scope>
+_CCCL_DEVICE static inline bool mbarrier_try_wait(
+  ::cuda::ptx::mbarrier_phase_primary_t,
+  ::cuda::ptx::sem_t<_Sem> __sem,
+  ::cuda::ptx::scope_t<_Scope> __scope,
+  bool& __isReportSeen,
+  ::cuda::std::uint8_t& __reportValue,
+  ::cuda::std::uint64_t* __addr,
+  ::cuda::std::uint64_t __state,
+  ::cuda::std::uint32_t __suspendTimeHint)
+{
+  // __phase_type == mbarrier_phase_primary (due to parameter type constraint)
+  static_assert(__sem == sem_acquire || __sem == sem_relaxed, "");
+  static_assert(__scope == scope_cta || __scope == scope_cluster, "");
+  ::cuda::std::uint32_t __waitComplete;
+  ::cuda::std::uint32_t __isReportSeen_tmp;
+  ::cuda::std::uint32_t __reportValue_tmp;
+  if constexpr (__sem == sem_acquire && __scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        ".reg .b8 B_OUT_reportValue; \n\t"
+        "mbarrier.try_wait.phase_type::primary.acquire.cta.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "B_OUT_reportValue, "
+        "[%3], %4, %5; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n\t"
+        "cvt.u32.u8 %2, B_OUT_reportValue; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp), "=r"(__reportValue_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_acquire && __scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        ".reg .b8 B_OUT_reportValue; \n\t"
+        "mbarrier.try_wait.phase_type::primary.acquire.cluster.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "B_OUT_reportValue, "
+        "[%3], %4, %5; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n\t"
+        "cvt.u32.u8 %2, B_OUT_reportValue; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp), "=r"(__reportValue_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_relaxed && __scope == scope_cta)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        ".reg .b8 B_OUT_reportValue; \n\t"
+        "mbarrier.try_wait.phase_type::primary.relaxed.cta.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "B_OUT_reportValue, "
+        "[%3], %4, %5; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n\t"
+        "cvt.u32.u8 %2, B_OUT_reportValue; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp), "=r"(__reportValue_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  else if constexpr (__sem == sem_relaxed && __scope == scope_cluster)
+  {
+    asm("{\n\t"
+        ".reg .pred P_OUT_waitComplete; \n\t"
+        ".reg .pred P_OUT_isReportSeen; \n\t"
+        ".reg .b8 B_OUT_reportValue; \n\t"
+        "mbarrier.try_wait.phase_type::primary.relaxed.cluster.shared::cta.b64 P_OUT_waitComplete|P_OUT_isReportSeen, "
+        "B_OUT_reportValue, "
+        "[%3], %4, %5; \n\t"
+        "selp.b32 %0, 1, 0, P_OUT_waitComplete; \n\t"
+        "selp.b32 %1, 1, 0, P_OUT_isReportSeen; \n\t"
+        "cvt.u32.u8 %2, B_OUT_reportValue; \n"
+        "}"
+        : "=r"(__waitComplete), "=r"(__isReportSeen_tmp), "=r"(__reportValue_tmp)
+        : "r"(__as_ptr_smem(__addr)), "l"(__state), "r"(__suspendTimeHint)
+        : "memory");
+  }
+  __isReportSeen = static_cast<bool>(__isReportSeen_tmp);
+  __reportValue  = static_cast<::cuda::std::uint8_t>(__reportValue_tmp);
+  return static_cast<bool>(__waitComplete);
+}
+#endif // __cccl_ptx_isa >= 940
+
+// NOLINTEND(modernize-unary-static-assert, bugprone-branch-clone)
+
+#endif // _CUDA_PTX_GENERATED_MBARRIER_TRY_WAIT_H_
