@@ -90,7 +90,7 @@ On Qwen3.8-Flash-Next-FP8, BFLA achieved a **2.50× speedup in mean time to firs
 | Prefill method | Accuracy | Mean TTFT (s) | Mean E2E (s) |
 |---|---:|---:|---:|
 | Dense (FA3) | 57.85% (291/503) | 18.557 | 21.156 |
-| Native QSA | **58.25% (293/503)** | 7.491 | 10.480 |
+| QSA | **58.25% (293/503)** | 7.491 | 10.480 |
 | BFLA | 58.05% (292/503) | **7.432** | **10.193** |
 
 **Serving.** We ran vLLM 0.31 on two SM90 GPUs (TP2, batch size 1) with a 1,000,000-token context limit, 4× YaRN scaling, a 16,384-token chunked-prefill budget, and prefix caching disabled. BFLA used its default Ratio-K settings: a target ratio of 1/3, a 2K-token minimum, and a 32K-token maximum.
