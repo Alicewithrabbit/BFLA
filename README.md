@@ -93,7 +93,7 @@ On Qwen3.8-Flash-Next-FP8, BFLA achieved a **2.50× speedup in mean time to firs
 | QSA | **58.25% (293/503)** | 7.491 | 10.480 |
 | BFLA | 58.05% (292/503) | **7.432** | **10.193** |
 
-**Serving.** We ran vLLM 0.31 on two SM90 GPUs (TP2, batch size 1) with a 1,000,000-token context limit, 4× YaRN scaling, a 16,384-token chunked-prefill budget, and prefix caching disabled. BFLA used its default Ratio-K settings: a target ratio of 1/3, a 2K-token minimum, and a 32K-token maximum.
+**Serving.** We ran vLLM 0.31 on two SM90 GPUs (NVIDIA H200, TP2, batch size 1) with a 1,000,000-token context limit, 4× YaRN scaling, a 16,384-token chunked-prefill budget, and prefix caching disabled. BFLA used its default Ratio-K settings: a target ratio of 1/3, a 2K-token minimum, and a 32K-token maximum.
 
 **Evaluation.** We used the official zero-shot, non-CoT prompt for all 503 questions, with greedy decoding, thinking disabled, and a 2,048-token output limit. For the 33 prompts exceeding 997,952 input tokens, we kept the beginning and end.
 
