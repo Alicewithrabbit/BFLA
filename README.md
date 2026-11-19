@@ -87,7 +87,7 @@ covers backend selection, alias KV and Qwen3.8-Flash-Next with native QSA decodi
 
 On Qwen3.8-Flash-Next-FP8, BFLA achieved a **2.50× speedup in mean time to first token (TTFT)** over dense FA3. All three prefill methods used native QSA decoding.
 
-| Prefill method | Official accuracy | Mean TTFT (s) | Mean E2E (s) |
+| Prefill method | Accuracy | Mean TTFT (s) | Mean E2E (s) |
 |---|---:|---:|---:|
 | Dense (FA3) | 57.85% (291/503) | 18.557 | 21.156 |
 | Native QSA | **58.25% (293/503)** | 7.491 | 10.480 |
