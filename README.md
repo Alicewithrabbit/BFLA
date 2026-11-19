@@ -1,4 +1,4 @@
-# BFLA
+# BFLA: Block-Filtered Long-Context Attention Mechanism
 
 Block-Filtered Long-Context Attention is a training-free sparse **prefill**
 operator. Compact indexing, query-tile sharing and Ratio-K block selection feed
