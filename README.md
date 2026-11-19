@@ -68,7 +68,7 @@ plan reuse and CUDA Graph capture.
 | Native paged KV | BF16 strided K/V views with explicit page tables |
 | Semantics | Causal, no soft cap/custom mask; original per-row softmax |
 | Index configuration | DI64/128/256; FP8/BF16; block64/128/256; M128/256/512 |
-| Per-request capacity | Up to 524,288 visible KV tokens, 8,192 candidate blocks and 2,048 selected blocks |
+| Per-request capacity | Up to 1,000,000 visible KV tokens, 16,384 candidate blocks and 2,048 selected blocks |
 
 Default sink/local behavior is 256 tokens and four aligned 128-token local
 windows. `short_full_threshold=2048` is independent of `k_min`; tail protection

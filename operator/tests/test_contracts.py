@@ -54,6 +54,19 @@ class ConfigContract(unittest.TestCase):
         self.assertEqual((h.query_head_ids, h.kv_head_ids), ((6, 7), (1,)))
         self.assertEqual((h.selection_ratio, h.consumer_ratio, h.key_weight), (4, 2, .5))
 
+    def test_million_token_paged_prefill_with_mixed_visible_lengths(self):
+        heads = self.Heads.create(24, 2, 256, tp_size=2, tp_rank=0)
+        config = self.Config()
+        for visible in (524288, 524289, 997952, 1000000):
+            with self.subTest(visible=visible):
+                result = self.supports(
+                    heads, config, request_lengths=(16384, 1024),
+                    kv_lengths=(visible, 8192), prompt_lengths=(1000000, 16384),
+                    kv_layout='paged')
+                self.assertTrue(result.supported, result.reasons)
+        self.assertFalse(self.supports(heads, config, request_lengths=(16384,),
+                                       kv_lengths=(1000001,), kv_layout='paged').supported)
+
     def test_unbounded_policy_does_not_bypass_selector_capacity(self):
         h = self.Heads.create(24, 4, 256)
         p = self.Config(k_max=None)

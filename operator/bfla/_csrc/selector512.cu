@@ -52,7 +52,8 @@ cudaError_t invoke(View w,void* temp,size_t& bytes,int rows,cudaStream_t stream)
 cudaError_t dispatch(View w,void* temp,size_t& bytes,int rows,int n,cudaStream_t stream) {
     if(n<=2048)return invoke<2048>(w,temp,bytes,rows,stream);
     if(n<=8192)return invoke<8192>(w,temp,bytes,rows,stream);
-    throw std::runtime_error("block candidate capacity exceeds 8192 (512K tokens)");
+    if(n<=16384)return invoke<16384>(w,temp,bytes,rows,stream);
+    throw std::runtime_error("block candidate capacity exceeds 16384");
 }
 size_t workspace_bytes(int rows,int n) {
     size_t bytes=0; View empty{};

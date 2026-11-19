@@ -13,9 +13,9 @@ KEY_READER_ROWS = 16384
 # Query feature batching is independent of the key-reader window.
 SELECTOR_WAVE_ROWS = 8192
 SELECTOR_BATCH_ROWS = 16384
-MAX_KV_TOKENS = 524288
+MAX_KV_TOKENS = 1_000_000
 
 # (selected capacity, candidate capacity), matching selector*.cu templates.
-SELECTOR_VARIANTS = ((512, 8192), (1024, 2048), (2048, 8192))
+SELECTOR_VARIANTS = ((512, 16384), (1024, 2048), (2048, 16384))
 MAX_SELECTED_BLOCKS = max(selected for selected, _ in SELECTOR_VARIANTS)
 MAX_CANDIDATE_BLOCKS = max(candidates for _, candidates in SELECTOR_VARIANTS)
